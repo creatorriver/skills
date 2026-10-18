@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "creatorriver": {
+      "type": "http",
+      "url": "https://www.creatorriver.com/api/mcp"
+    }
+  }
+}

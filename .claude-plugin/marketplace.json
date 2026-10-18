@@ -1,0 +1,15 @@
+{
+  "name": "creatorriver",
+  "description": "Creator River's plugins for finding creators and running influencer outreach.",
+  "owner": {
+    "name": "Creator River",
+    "url": "https://www.creatorriver.com"
+  },
+  "plugins": [
+    {
+      "name": "creatorriver",
+      "source": "./",
+      "description": "Find YouTube, TikTok and Instagram creators for a brand, reveal their email, send outreach and track replies with Creator River."
+    }
+  ]
+}
