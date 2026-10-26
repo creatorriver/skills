@@ -1,0 +1,10 @@
+{
+  "name": "creatorriver",
+  "version": "0.1.0",
+  "description": "Find YouTube, TikTok and Instagram creators for a brand, reveal their email, send outreach and track replies with Creator River.",
+  "mcpServers": {
+    "creatorriver": {
+      "httpUrl": "https://www.creatorriver.com/api/mcp"
+    }
+  }
+}

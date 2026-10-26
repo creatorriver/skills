@@ -13,6 +13,14 @@
 
 The plugin adds the skill and connects the Creator River MCP server. The first time you use it, sign in from `/mcp` and approve access in the browser.
 
+**Gemini CLI**
+
+```
+gemini extensions install https://github.com/creatorriver/skills
+```
+
+The extension adds the skill and the Creator River MCP server; Gemini CLI asks you to sign in the first time a tool runs.
+
 **Codex, Cursor, OpenCode and other agents**
 
 ```

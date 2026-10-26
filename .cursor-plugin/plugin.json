@@ -1,0 +1,23 @@
+{
+  "name": "creatorriver",
+  "version": "0.1.0",
+  "description": "Find YouTube, TikTok and Instagram creators for a brand, reveal their email, send outreach and track replies with Creator River.",
+  "author": {
+    "name": "Creator River",
+    "email": "support@creatorriver.com"
+  },
+  "homepage": "https://www.creatorriver.com",
+  "repository": "https://github.com/creatorriver/skills",
+  "license": "MIT",
+  "keywords": [
+    "influencer-marketing",
+    "creators",
+    "influencers",
+    "youtube",
+    "tiktok",
+    "instagram",
+    "outreach"
+  ],
+  "logo": "logo.png",
+  "mcpServers": "./.mcp.json"
+}
