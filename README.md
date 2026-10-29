@@ -1,6 +1,6 @@
 # Creator River for AI agents
 
-[Creator River](https://www.creatorriver.com) finds YouTube, TikTok and Instagram creators for a brand, reveals their email, sends outreach and tracks replies. This repository holds the Creator River skill and Claude plugin, so your agent can run that workflow for you: describe the creators you want, review a shortlist, approve the emails, and follow the replies.
+[Creator River](https://www.creatorriver.com) lets you search 1.8M+ YouTube, TikTok and Instagram creators in plain language, every one with a contact email, then send outreach and track replies. This repository holds the Creator River skill and Claude plugin, so your agent can run that workflow for you: describe the creators you want, review a shortlist, approve the emails, and follow the replies.
 
 ## Install
 
@@ -41,7 +41,7 @@ Without the MCP server, the skill uses the [`creatorriver`](https://www.npmjs.co
 
 - The plugin runs no local code. The skill and the MCP server talk only to Creator River at `https://www.creatorriver.com` (`/api/mcp`, `/api/v1`).
 - Signing in creates an API key on your Creator River account. You can see and revoke it at https://www.creatorriver.com/settings/apikeys.
-- Searching and reading are free within daily limits. Unlocking a creator, revealing an email and sending beyond the daily free emails cost credits. The skill tells the agent to check prices first, ask before spending, and send only the emails you approve.
+- Searching and reading are free within daily limits. You spend credits when you open a creator, reveal an email (refunded if it bounces) or send more than the free daily emails. 100 credits cost $1, and new accounts get 100 free. The skill tells the agent to check prices first, ask before spending, and send only the emails you approve.
 - [Privacy policy](https://www.creatorriver.com/privacy-policy) · [Terms of service](https://www.creatorriver.com/terms-of-service)
 
 ## Support
