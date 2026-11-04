@@ -36,7 +36,8 @@ Without the MCP server, the skill uses the [`creatorriver`](https://www.npmjs.co
 - Searches the creator database from a plain description: niche, content, audience, plus filters such as platform, niche, country, language, followers and views. It can also find creators like ones you name by handle or profile link, or like any result, and reopen past searches without searching again.
 - Shows creator profiles with audience, recent content, engagement and an estimated price.
 - Reveals a creator's email, sends plain-text outreach from your Creator River account, and shows the replies and what each conversation is waiting on.
-- Keeps the campaign pipeline current: records replies that came some other way, confirms collaborations, takes creators out of a campaign and updates the brief.
+- Keeps the campaign pipeline current: shortlists creators, records replies that came some other way, confirms collaborations, takes creators out of a campaign and updates the brief.
+- Lists the biggest creators for a set of filters, finds a creator by handle, keeps a saved list, and exports a search's results as CSV.
 
 ## Data and costs
 
