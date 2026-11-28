@@ -1,6 +1,6 @@
 # Creator River for AI agents
 
-[Creator River](https://www.creatorriver.com) lets you search 1.8M+ YouTube, TikTok and Instagram creators in plain language, every one with a contact email, then send outreach and track replies. This repository holds the Creator River skill and Claude plugin, so your agent can run that workflow for you: describe the creators you want, review a shortlist, approve the emails, and follow the replies.
+[Creator River](https://www.creatorriver.com) lets you search 10M+ YouTube, TikTok and Instagram creators in plain language, every one with a contact email, then send outreach and track replies. This repository holds the Creator River skill and Claude plugin, so your agent can run that workflow for you: describe the creators you want, review a shortlist, approve the emails, and follow the replies.
 
 ## Install
 

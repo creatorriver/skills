@@ -5,7 +5,7 @@ description: Find YouTube, TikTok and Instagram creators (influencers) for a bra
 
 # Creator River
 
-Creator River is a database of 1.8M+ YouTube, TikTok and Instagram creators, every one with a contact email, with outreach built in. Its operations are available as MCP tools and as `creatorriver` CLI commands with the same inputs. MCP tools describe their own inputs; `--help` on any CLI command shows its flags and cost.
+Creator River is a database of 10M+ YouTube, TikTok and Instagram creators, every one with a contact email, with outreach built in. Its operations are available as MCP tools and as `creatorriver` CLI commands with the same inputs. MCP tools describe their own inputs; `--help` on any CLI command shows its flags and cost.
 
 | MCP tool                | CLI command                          |
 | ----------------------- | ------------------------------------ |
@@ -15,7 +15,8 @@ Creator River is a database of 1.8M+ YouTube, TikTok and Instagram creators, eve
 | `find_creator`          | `creatorriver creators find`         |
 | `find_similar_creators` | `creatorriver creators similar`      |
 | `list_trending_videos`  | `creatorriver trends videos`         |
-| `list_trending_hashtags`| `creatorriver trends hashtags`       |
+| `list_trending_hashtags` | `creatorriver trends hashtags`       |
+| `expand_search`         | `creatorriver searches expand`       |
 | `list_searches`         | `creatorriver searches list`         |
 | `get_search`            | `creatorriver searches get`          |
 | `get_search_filters`    | `creatorriver searches filters`      |
@@ -42,19 +43,23 @@ Creator River is a database of 1.8M+ YouTube, TikTok and Instagram creators, eve
 ## Connect
 
 - **MCP tools present** (e.g. `get_account`): use them.
-- **Otherwise use the CLI**: `npx -y creatorriver account`. Each command prints one JSON line; read `data` on success, or `error` (on stderr, non-zero exit code) on failure. List flags are comma-separated (`--platforms youtube,tiktok`). Account exclusions, batch reveals and follow-ups without a subject require CLI 0.5.0 or newer. Check `creatorriver --version` if using a locally installed copy.
+- **Otherwise use the CLI**: `npx -y creatorriver account`. Each command prints one JSON line; read `data` on success, or `error` (on stderr, non-zero exit code) on failure. List flags are comma-separated (`--platforms youtube,tiktok`). Account exclusions, batch reveals and follow-ups without a subject require CLI 0.5.0 or newer. Multi-creator similarity, saved-search expansion and browse offsets require CLI 0.6.0 or newer. Check `creatorriver --version` and use MCP if the installed CLI lacks the command or flag.
 - **`unauthorized`**: run `npx -y creatorriver auth login`. It prints a `verificationUrl` and a `userCode`: ask the user to open the link, check the code and approve, then run `npx -y creatorriver auth login --wait`. If the user would rather paste a key from https://www.creatorriver.com/settings/apikeys, save it with `printf '%s' "<key>" | npx -y creatorriver auth login --with-key`. To add the MCP server to Claude Code instead: `claude mcp add --transport http creatorriver https://www.creatorriver.com/api/mcp`, then sign in from `/mcp`.
 
 ## Workflow
 
 1. **Check the account.** `get_account` shows the balance, prices and today's limits. Do it before anything that costs credits.
 2. **Pick a campaign.** Reuse a fitting one from `list_campaigns`, or `create_campaign` with a brief: the product, the goal and the creators wanted. Every account has a default "General Outreach" campaign. When the brief changes, `update_campaign` keeps later searches ranked against the new one.
-3. **Search.** Pass `campaignId`, describe the content and audience you want, and put hard requirements in filters. In search, browse and similar searches, use `excludeContacted` for new prospects across campaigns. Apply `excludeExported` or `excludeUploaded` when the user also wants to skip past exports or the list they uploaded on the website. Pass handles or profile links as `exampleCreators` for lookalikes and read `warnings` for unresolved examples. Use `list_trending_videos` and `list_trending_hashtags` to spot recent breakout viral videos and rising topics before searching, or pass `hasRecentViral` in `search_creators` / `browse_creators` to filter creators with a 10x+ viral video in the last 30 days. Use `find_creator` for an exact handle, `find_similar_creators` for more like one result, or `browse_creators` for filters alone. Read `get_account` for the maximum results per search and the daily allowance shared by new searches, similar searches and filtered lists. The default unfiltered list and reopening a successful search that day use no extra allowance. `list_searches` and `get_search` reopen saved results.
+3. **Search.** Pass `campaignId`, describe the content and audience you want, and put hard requirements in filters. In search, browse and similar searches, use `excludeContacted` for new prospects across campaigns. Apply `excludeExported` or `excludeUploaded` when the user also wants to skip past exports or the list they uploaded on the website. Pass handles or profile links as `exampleCreators` for lookalikes and read `warnings` for unresolved examples. Use `list_trending_videos` and `list_trending_hashtags` to spot recent breakout viral videos and rising topics before searching, or pass `hasRecentViral` in `search_creators` / `browse_creators` to filter creators with a 10x+ viral video in the last 30 days. Use `find_creator` for an exact handle and `browse_creators` for filters alone. For similar creators, pass one result’s `creatorId` to `find_similar_creators`. Add up to four more result IDs in `additionalCreatorIds` to search for what those creators share. The same creator filters apply. Read `get_account` for the maximum results per search and the daily allowance shared by new searches, similar searches and filtered lists. The default unfiltered list and reopening a successful search that day use no extra allowance. `list_searches` and `get_search` reopen saved results.
 4. **Shortlist.** Show the strongest matches with evidence from their profiles. Names are visible before unlocking. Read `get_creator` for a closer look. `add_creator` puts a creator in the campaign, and `save_creator` keeps an account bookmark. Either costs the first unlock. `exclude_creator` with `searchId` removes a poor fit from the campaign and that search. Exporting a search as CSV records the returned creators for `excludeExported`.
 5. **Reveal selected emails.** Use `reveal_contact` for one creator or `reveal_contacts` for up to 10 per request. Both add the creator to the campaign. For a larger selection, quote the maximum for the whole selection using `get_account` and get approval unless the user already provided a sufficient budget. An initial unlock and reveal cost 0.7 credits together. Reuse across campaigns is free. Read each batch item's status, keep successes and pause further batches if credits or today's allowance run out.
 6. **Write and send.** Draft each email as [Writing outreach](#writing-outreach) describes. Show the recipient, subject and text for each email and send only the drafts the user approves. The first email needs a subject. The subject and body support `{name}`, `{handle}`, `{platform}`, `{followers}` and `{country}`. If a value is unavailable, revise the draft. On a follow-up in the same campaign, omit the subject to reply in the existing thread. Creator River copies the last person who replied on the creator’s behalf. Retrying the same send reuses its result.
 7. **Keep the pipeline current.** When the user tells you about a reply that came some other way (a DM, a call), `record_reply` with how it went; replies to your emails arrive on their own, so never record those. Once a creator has clearly agreed to terms, `confirm_collaboration` with what was agreed. When the user rules a creator out, `exclude_creator`. None of these messages the creator.
 8. **Follow up.** `get_conversation` shows replies and who the thread is waiting on. An `auto_reply` such as an out-of-office message leaves it waiting on the creator. The account owner receives a notification for a human email reply. `get_campaign_status` shows how many creators are at each stage and the most recently active ones, with the next action. To go through all creators at one stage, pass `stage` and read `page` 1, 2, … until you have seen `count` of them.
+
+## More search results
+
+Pass a saved keyword or similar search’s `searchId` to `expand_search`. The limit is the total you want. For example, if the user has seen 20 matches, `creatorriver searches expand --search-id <id> --limit 40` returns up to 20 new matches. The original order, reference creators and filters are preserved. Expanding on the same day uses the original search allowance. Use `get_search` to read the full list. If an older similar search lacks its reference creators, start a new similar search to find additional matches. For browse results, use the returned `pagination.nextOffset` as the next `offset`.
 
 ## Writing outreach
 
@@ -76,7 +81,7 @@ Creators get many pitches and answer the ones written for them. Before drafting,
 | `invalid_input`             | Fix the fields listed in `details.issues` and retry.                                                            |
 | `not_found`                 | The id is wrong or belongs to another account; get ids again from `search_creators` or `list_campaigns`.        |
 | `conflict`                  | A step is missing, e.g. `reveal_contact` before `send_email`; the message says which.                           |
-| `insufficient_credits`      | Tell the user the balance and the cost (`details`); credits are bought at https://www.creatorriver.com/pricing. |
+| `insufficient_credits`      | Quote the shortfall and the recommended non-expiring pack from the response. Share its `checkoutUrl` or the `buyCreditsUrl` for all plans. After the user tops up, retry the outstanding items. |
 | `rate_limited`              | Give the reset time in `details.resetAt` and the purchase link if the response includes one.                    |
 | `unauthorized`              | See Connect.                                                                                                    |
 | `login_pending`             | The user has not approved the login yet; ask them to, then run `auth login --wait` again.                       |
