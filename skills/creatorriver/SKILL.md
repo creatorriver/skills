@@ -43,7 +43,7 @@ Creator River is a database of 10M+ YouTube, TikTok and Instagram creators, ever
 ## Connect
 
 - **MCP tools present** (e.g. `get_account`): use them.
-- **Otherwise use the CLI**: `npx -y creatorriver account`. Each command prints one JSON line; read `data` on success, or `error` (on stderr, non-zero exit code) on failure. List flags are comma-separated (`--platforms youtube,tiktok`). Account exclusions, batch reveals and follow-ups without a subject require CLI 0.5.0 or newer. Multi-creator similarity, saved-search expansion and browse offsets require CLI 0.6.0 or newer. Check `creatorriver --version` and use MCP if the installed CLI lacks the command or flag.
+- **Otherwise use the CLI**: `npx -y creatorriver account`. Each command prints one JSON line; read `data` on success, or `error` (on stderr, non-zero exit code) on failure. List flags are comma-separated (`--platforms youtube,tiktok`). Account exclusions, batch reveals and follow-ups without a subject require CLI 0.5.0 or newer. Use CLI 0.6.1 or newer for multi-creator similarity, saved-search expansion and browse offsets. Check `creatorriver --version` and use MCP if the installed CLI lacks the command or flag.
 - **`unauthorized`**: run `npx -y creatorriver auth login`. It prints a `verificationUrl` and a `userCode`: ask the user to open the link, check the code and approve, then run `npx -y creatorriver auth login --wait`. If the user would rather paste a key from https://www.creatorriver.com/settings/apikeys, save it with `printf '%s' "<key>" | npx -y creatorriver auth login --with-key`. To add the MCP server to Claude Code instead: `claude mcp add --transport http creatorriver https://www.creatorriver.com/api/mcp`, then sign in from `/mcp`.
 
 ## Workflow
